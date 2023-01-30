@@ -1,0 +1,24 @@
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path
+
+from posts.views import homepage, post, about, search, postlist, allposts , exam , LikeView , tag
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', homepage, name = 'homepage'),
+    path('post/<slug>/', post, name = 'post'),
+    path('about/', about,name = 'about' ),
+    path('exam/', exam,name = 'exam' ),
+    path('search/', search, name = 'search'),
+    path('postlist/<slug>/', postlist, name = 'postlist'), 
+    path('tag/<slug:tag_slug>/',tag, name='tag'),
+    path('posts/', allposts, name = 'allposts'),
+    path('like/<int:pk>' , LikeView , name = 'like_post'),
+    
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
